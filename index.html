@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Favorites ♡</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            background: #fff7fb;
+            color: #4a3b43;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 8%;
+            background: rgba(255,247,251,0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #d96b9c;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #5c4a53;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #d96b9c;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+            background: linear-gradient(135deg,#ffe3ef,#f5e7ff);
+        }
+
+        .hero .emoji {
+            font-size: 70px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            color: #d45d94;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #705d66;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 25px;
+            background: #d96b9c;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(217,107,156,0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: #c95788;
+        }
+
+        /* SECTION */
+        section {
+            padding: 90px 8%;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .title h2 {
+            font-size: 35px;
+            color: #d45d94;
+        }
+
+        .title p {
+            margin-top: 8px;
+            color: #806e76;
+        }
+
+        /* BIODATA */
+        .about {
+            background: #fff;
+        }
+
+        .profile {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 30px;
+            padding: 35px;
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(120,80,100,0.1);
+            border: 1px solid #f8dce9;
+        }
+
+        .profile-photo {
+            min-width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#ffd4e6,#eadcff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 75px;
+        }
+
+        .profile-info h2 {
+            color: #d45d94;
+            margin-bottom: 15px;
+        }
+
+        .profile-info p {
+            line-height: 1.8;
+            margin: 6px 0;
+        }
+
+        .profile-info span {
+            font-weight: bold;
+            color: #c95788;
+        }
+
+        /* FAVORITES */
+        .favorites {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(120,80,100,0.08);
+            transition: 0.3s;
+            border: 1px solid #f8dce9;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(120,80,100,0.15);
+        }
+
+        .card .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #d45d94;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #77666e;
+        }
+
+        /* TOP 3 */
+        .top-section {
+            background: #fff0f6;
+        }
+
+        .top-list {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .top-item {
+            background: white;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .top-item:hover {
+            transform: translateX(8px);
+        }
+
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .top-item h3 {
+            color: #d45d94;
+        }
+
+        /* FUN FACTS */
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .fact {
+            background: #fff0f6;
+            padding: 25px;
+            text-align: center;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .fact:hover {
+            transform: scale(1.04);
+        }
+
+        .fact h3 {
+            color: #d45d94;
+            margin: 10px 0;
+        }
+
+        /* DREAMS */
+        .dream-box {
+            max-width: 900px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 25px;
+        }
+
+        .dream {
+            padding: 30px;
+            border-radius: 25px;
+            background: linear-gradient(135deg,#ffe1ed,#eee2ff);
+            text-align: center;
+        }
+
+        .dream .icon {
+            font-size: 45px;
+        }
+
+        .dream h3 {
+            color: #c95788;
+            margin: 12px 0;
+        }
+
+        .dream p {
+            line-height: 1.7;
+        }
+
+        /* CURRENTLY OBSESSED */
+        .obsessed {
+            max-width: 800px;
+            margin: auto;
+            padding: 45px;
+            border-radius: 30px;
+            text-align: center;
+            background: linear-gradient(135deg,#ffdce9,#eadcff);
+        }
+
+        .obsessed h2 {
+            color: #c95788;
+            margin-bottom: 15px;
+        }
+
+        .obsessed p {
+            line-height: 1.8;
+        }
+
+        /* SOCIAL MEDIA */
+        .social {
+            text-align: center;
+        }
+
+        .social a {
+            display: inline-block;
+            margin: 8px;
+            padding: 12px 22px;
+            border-radius: 25px;
+            background: #fff0f6;
+            color: #c95788;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social a:hover {
+            background: #d96b9c;
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #d96b9c;
+            color: white;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width:800px) {
+            nav {
+                padding: 15px 5%;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            nav ul li a {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .favorites,
+            .facts {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width:550px) {
+            nav .logo {
+                font-size: 17px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .favorites,
+            .facts,
+            .dream-box {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 6%;
+            }
+
+            .profile {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">♡ My Favorites</div>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#favorites">Favorites</a></li>
+            <li><a href="#top3">Top 3</a></li>
+            <li><a href="#dreams">Dreams</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="emoji">🎀</div>
+
+        <h1>My Favorites</h1>
+
+        <p>A little collection of things I love ♡</p>
+
+        <a href="#about" class="btn">
+            Get to Know Me ↓
+        </a>
+
+    </section>
+
+
+    <!-- ABOUT ME -->
+    <section class="about" id="about">
+
+        <div class="title">
+            <h2>About Me 🌷</h2>
+            <p>Let's get to know me a little closer!</p>
+        </div>
+
+        <div class="profile">
+
+            <div class="profile-photo">
+                👧🏻
+            </div>
+
+            <div class="profile-info">
+
+                <h2>Hi, I'm [Tari Okta Elricka] ♡</h2>
+
+                <p><span>Nama:</span> [Tari Okta Elricka]</p>
+                <p><span>Nama Panggilan:</span> [Tarii]</p>
+                <p><span>Umur:</span> [15]</p>
+                <p><span>Kelas:</span> [10 sma]</p>
+                <p><span>Sekolah:</span> [sma 19 bandung ]</p>
+                <p><span>Hobi:</span> Mendengarkan musik & menonton film</p>
+                <p><span>Kepribadian:</span> [Contoh: Friendly, cheerful & easy going]</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FAVORITES -->
+    <section id="favorites">
+
+        <div class="title">
+            <h2>Things I Love ♡</h2>
+            <p>Beberapa hal yang menjadi favoritku menikmati hari tampa memikirkan yang lain, menonton sambil makan </p>
+        </div>
+
+        <div class="favorites">
+
+            <div class="card">
+                <div class="icon">🎧</div>
+                <h3>Music</h3>
+                <p>
+                    Aku suka mendengarkan musik saat sedang santai,
+                    atau ketika ingin menaikkan mood.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🍜</div>
+                <h3>Food</h3>
+                <p>
+                    Makanan favoritku adalah [mie,nasi padang, ayam rica rica,bakso,mie ayam, dimsum dan banyak lain nyaa ].
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎨</div>
+                <h3>Color</h3>
+                <p>
+                    Warna favoritku adalah pink dan bitu tua karena terlihat
+                    cute, lembut, dan enak di lihat .
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎬</div>
+                <h3>Movie</h3>
+                <p>
+                    Aku suka menonton drama korea ataupun drama cina,film Indonesia atau series aku suka 
+                    sedang memiliki waktu luang.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎤</div>
+                <h3>Hobby</h3>
+                <p>
+                    Aku suka mendengarkan musik, bernyanyi,
+                    dan melakukan hal-hal yang menyenangkan.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🌸</div>
+                <h3>Things I Like</h3>
+                <p>
+                    Aku suka hal-hal yang cute, aesthetic,
+                    bunga, suasana yang nyaman, dan aku suka bereksperimen
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOP 3 -->
+    <section class="top-section" id="top3">
+
+        <div class="title">
+            <h2>My Top 3 ✨</h2>
+            <p>Favorite things versi aku... memikikan diaa </p>
+        </div>
+
+        <div class="top-list">
+
+            <div class="top-item">
+                <div class="number">🥇</div>
+                <div>
+                    <h3>Favorite Song</h3>
+                    <p>[aku suka lagu choom, drip, hapier, remaja, pelangi,perahu kertas dan banyak lain nyaa] 🎧</p>
+                </div>
+            </div>
+
+            <div class="top-item">
+                <div class="number">🥈</div>
+                <div>
+                    <h3>Favorite Food</h3>
+                    <p>[mie dan olahan ayam apapu itu yg enak, nasi padang ] 🍜</p>
+                </div>
+            </div>
+
+            <div class="top-item">
+                <div class="number">🥉</div>
+                <div>
+                    <h3>Favorite Movie</h3>
+                  [aku suka banget drama korea atau drama cina] 🎬</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FUN FACTS -->
+    <section>
+
+        <div class="title">
+            <h2>Fun Facts About Me ✨</h2>
+            <p>Hal random tentang aku yaitu GA SUKA SAYURAN </p>
+        </div>
+
+        <div class="facts">
+
+            <div class="fact">
+                <div>🎧</div>
+                <h3>Music Lover</h3>
+                <p>Aku bisa mendengarkan musik hampir setiap hari.</p>
+            </div>
+
+            <div class="fact">
+                <div>🌙</div>
+                <h3>Night Person</h3>
+                <p>Suka menikmati suasana malam yang tenang.</p>
+            </div>
+
+            <div class="fact">
+                <div>📱</div>
+                <h3>Scrolling</h3>
+                <p>Kadang suka scrolling ketika sedang bosan.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DREAMS & GOALS -->
+    <section id="dreams">
+
+        <div class="title">
+            <h2>Dreams & Goals 🌟</h2>
+            <p>Hal-hal yang ingin aku capai menjadi pengusa yg banyak uang jadi CEO </p>
+        </div>
+
+        <div class="dream-box">
+
+            <div class="dream">
+                <div class="icon">🎓</div>
+                <h3>My Dream</h3>
+                <p>
+                    Aku ingin memiliki masa depan yang sukses
+                    dan membanggakan orang-orang yang aku sayangi.
+                </p>
+            </div>
+
+            <div class="dream">
+                <div class="icon">💫</div>
+                <h3>My Goal</h3>
+                <p>
+                    Terus belajar, berkembang, dan menjadi versi
+                    terbaik dari diriku sendiri.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CURRENTLY OBSESSED -->
+    <section id="obsessed">
+
+        <div class="obsessed">
+
+            <h2>Currently Obsessed With... 💗</h2>
+
+            <p>
+                Saat ini aku sedang suka banget dengan
+                musik, menonton film, dan menghabiskan waktu
+                dengan hal-hal yang membuatku bahagia. ✨
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SOCIAL MEDIA -->
+    <section class="social">
+
+        <div class="title">
+            <h2>Find Me Here 💌</h2>
+            <p>My social media</p>
+        </div>
+
+        <a href="#" target="_blank">📷 Instagram</a>
+        <a href="#" target="_blank">🎵 TikTok</a>
+        <a href="#" target="_blank">💬 WhatsApp</a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>Made with ♡ by [Tari Okta Elricka]</p>
+        <p>© 2026 My Favorites</p>
+
+    </footer>
+
+</body>
+          </html>
